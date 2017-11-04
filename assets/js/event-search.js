@@ -91,12 +91,24 @@ function parseEvents(events){
     };
 };
 
+function validateImgUrl(url){
+    console.log("url: " + url);
+    var img = new Image();
+    img.onload = function() {
+        return url
+    }
+    img.onerror = function() {
+        return "assets/media/stock.png"
+    }
+    img.src = url;
+};
+
 //set logo to stock image if event.logo is null
 function setLogoUrl(logo){
     if(logo === null){
         return "assets/media/stock.png";
     } else {
-        return logo["url"];
+        return validateImgUrl(logo["url"])
     }
 };
 
