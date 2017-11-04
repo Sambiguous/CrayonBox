@@ -181,7 +181,7 @@ function dealCards(array) {
 //page through results
 function turnPage(direction){
     if(direction === "forward"){
-        if(page < (Math.floor((eventList.length / CARDS_PER_PAGE) - 1))){
+        if(page < (Math.floor(eventList.length / CARDS_PER_PAGE))){
             page++;
             dealCards(eventList);
         };
