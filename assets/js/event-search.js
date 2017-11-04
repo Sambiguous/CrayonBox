@@ -91,22 +91,21 @@ function parseEvents(events){
     };
 };
 
-function validateImgUrl(url){
-    $.get(url)
-    .done(function(){
-        return url
-    })
-    .fail(function(){
-        return "assets/media/stock.png"
-    });
-};
 
 //set logo to stock image if event.logo is null
 function setLogoUrl(logo){
     if(logo === null){
         return "assets/media/stock.png";
     } else {
-        return validateImgUrl(logo["url"])
+        $.get(url)
+        .done(function(){
+            console.log("done");
+            return url
+        })
+        .fail(function(){
+            console.log("fail");
+            return "assets/media/stock.png"
+        });
     }
 };
 
