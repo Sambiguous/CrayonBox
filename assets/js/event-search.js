@@ -92,15 +92,13 @@ function parseEvents(events){
 };
 
 function validateImgUrl(url){
-    console.log("url: " + url);
-    var img = new Image();
-    img.onload = function() {
+    $.get(url)
+    .done(function(){
         return url
-    }
-    img.onerror = function() {
+    })
+    .fail(function(){
         return "assets/media/stock.png"
-    }
-    img.src = url;
+    });
 };
 
 //set logo to stock image if event.logo is null
