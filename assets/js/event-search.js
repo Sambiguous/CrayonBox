@@ -93,7 +93,7 @@ function parseEvents(events){
 };
 
 
-//set logo to stock image if event.logo is null
+//set logo to stock image if event.logo is null or is an invalid link
 function setLogoUrl(event, obj){
     if(obj["logo"] === null){
         event["logo_url"] = "assets/media/stock.png";
@@ -152,7 +152,7 @@ function dealCards(array) {
         $('#search-results').append(
             '<div id="' + array[i]["id"] + '" class="card animated fadeIn" data-toggle="modal" data-target="#event-info" style="border: 5px outset rgba(' + colorR + ',' + colorG + ',' + colorB + ',.4); background: rgba(' + colorR + ',' + colorG + ',' + colorB + ',.17)">' +
                 '<img class="dollar" src="' + dollarSign + '" alt="' + alt + '"/>' + 
-                '<img id="' + array[i]["id"] + '_img' + '" class="card-img-top mx-auto" src="#" alt="Card image cap"/>' +
+                '<img id="' + array[i]["id"] + '_img' + '" class="card-img-top mx-auto" src="' + array[i]["logo_url"] + '" alt="Card image cap"/>' +
             '<div class="card-body" data-spy="scroll">' +
             	 '<h5 class="card-title">' + array[i]["name"] + '</h5>' +
                 '<p class="card-text">' + array[i]["desc"] + '</p>' +
