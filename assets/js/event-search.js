@@ -83,7 +83,7 @@ function parseEvents(events){
 	        "desc": events["events"][i]["description"]["text"],
 	        "venue_id": events["events"][i]["venue_id"],
 	        "is_free": events["events"][i]["is_free"],
-	        "logo_url": setLogoUrl(events["events"][i]["logo"]),
+	        "logo_url": setLogoUrl(events["events"][i]),
 	        "date": events["events"][i]["start"]["utc"]
         };
 
@@ -93,20 +93,24 @@ function parseEvents(events){
 
 
 //set logo to stock image if event.logo is null
-function setLogoUrl(logo){
-    if(logo === null){
+function setLogoUrl(obj){
+    if(obj["logo"] === null){
         return "assets/media/stock.png";
     } else {
-        $.get(url)
+        $.get(obj["logo"]["url"])
         .done(function(){
             console.log("done");
-            return url
+            $("#" + obj["id"] + "_img").attr("src", obj["logo"]["url"])
+            return obj["logo"]["url"]
+
         })
         .fail(function(){
             console.log("fail");
+            $("#" + obj["id"] + "_img").attr("src", "assets/media/stock.png")
             return "assets/media/stock.png"
         });
-    }
+
+    };
 };
 
 //set date to blank string if date = "All Dates"
@@ -147,7 +151,7 @@ function dealCards(array) {
         $('#search-results').append(
             '<div id="' + array[i]["id"] + '" class="card animated fadeIn" data-toggle="modal" data-target="#event-info" style="border: 5px outset rgba(' + colorR + ',' + colorG + ',' + colorB + ',.4); background: rgba(' + colorR + ',' + colorG + ',' + colorB + ',.17)">' +
                 '<img class="dollar" src="' + dollarSign + '" alt="' + alt + '"/>' + 
-                '<img class="card-img-top mx-auto" src="'+ array[i]["logo_url"] +'" alt="Card image cap"/>' +
+                '<img id="' + array[i]["id"] + '_img' + '" class="card-img-top mx-auto" src="#" alt="Card image cap"/>' +
             '<div class="card-body" data-spy="scroll">' +
             	 '<h5 class="card-title">' + array[i]["name"] + '</h5>' +
                 '<p class="card-text">' + array[i]["desc"] + '</p>' +
