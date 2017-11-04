@@ -83,9 +83,10 @@ function parseEvents(events){
 	        "desc": events["events"][i]["description"]["text"],
 	        "venue_id": events["events"][i]["venue_id"],
 	        "is_free": events["events"][i]["is_free"],
-	        "logo_url": setLogoUrl(events["events"][i]),
+	        "logo_url": "#",
 	        "date": events["events"][i]["start"]["utc"]
         };
+        setLogoUrl(event, events["events"][i]);
 
         eventList.push(event);
     };
@@ -93,21 +94,21 @@ function parseEvents(events){
 
 
 //set logo to stock image if event.logo is null
-function setLogoUrl(obj){
+function setLogoUrl(event, obj){
     if(obj["logo"] === null){
-        return "assets/media/stock.png";
+        event["logo_url"] = "assets/media/stock.png";
     } else {
         $.get(obj["logo"]["url"])
         .done(function(){
             console.log("done");
             $("#" + obj["id"] + "_img").attr("src", obj["logo"]["url"])
-            return obj["logo"]["url"]
+            event["logo_url"] = obj["logo"]["url"]
 
         })
         .fail(function(){
             console.log("fail");
             $("#" + obj["id"] + "_img").attr("src", "assets/media/stock.png")
-            return "assets/media/stock.png"
+            event["logo_url"] = "assets/media/stock.png"
         });
 
     };
